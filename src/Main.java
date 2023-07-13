@@ -73,7 +73,7 @@ public class Main {
 
         // Группировка сотрудников по должности
         Map<String, List<Employee>> employeesByPosition = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getPosition));
+                .collect(Collectors.groupingBy(Employee::getPosition, Collectors.toList()));
         System.out.println("По должности:" + employeesByPosition);
 
         // Вычисление средней зарплаты всех сотрудников
@@ -103,7 +103,8 @@ public class Main {
 
         // Получение сотрудников из всех отделов с максимальной зарплатой
         Map<String,Optional<Employee>> employeesByMaxSalary = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.maxBy(Comparator.comparingDouble(emp -> emp.getSalary()))));
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.maxBy(Comparator.comparingDouble(emp -> emp.getSalary()))));
         System.out.println("С самой высокой зарплатой по отделам: " +employeesByMaxSalary);
     }
 }
